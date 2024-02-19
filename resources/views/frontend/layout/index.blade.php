@@ -310,36 +310,38 @@
     </div>
 
 
-    <?php
-    
-// echo '<pre>';
-// print_r($productimg);
-// die;
-    $count = count($product);
-
-    for ($i = 0; $i < count($product); $i++) {
-    
-        // print_r($product);
-    ?>
-        <div class="container-fluid p-5 ">
+ 
 
 
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="..." alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title"><?php echo $product[$i]['product_name'] ?></h5>
-                    <p class="card-text"><?php echo $product[$i]['description'] ?></p>
-                    <p ><?php echo $product[$i]['product_brief'] ?></p>
-                    <p>Price :  <?php echo $product[$i]['price'] ?></p>
-                    <p>Discounted Price :  <?php echo $product[$i]['discount_price'] ?></p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
+
+
+   
+
+    @for ($i = 0; $i < count($product); $i++)
+    <div class="container-fluid p-5 ">
+        <div class="card" style="width: 18rem;">
+            <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+            <div class="card-body">
+                @foreach($productimg as $item)
+                    @if($item['main_id'] == $product[$i]['id'])
+                    <img class="card-img-top" src="{{ asset('imgsFolder/' . $product[$i]['id'] . '/' . $item['image']) }}" alt="Product Image" height="200px">
+              
+                        @break
+                    @endif
+                @endforeach
+
+                <h5 class="card-title">{{ $product[$i]['product_name'] }}</h5>
+                <p class="card-text">{{ $product[$i]['description'] }}</p>
+                <p>{{ $product[$i]['product_brief'] }}</p>
+                <p>Price : {{ $product[$i]['price'] }}</p>
+                <p>Discounted Price : {{ $product[$i]['discount_price'] }}</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
         </div>
+    </div>
+@endfor
 
-    <?php
-    }
-    ?>
+
 
 </body>
 
